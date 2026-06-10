@@ -1,0 +1,16 @@
+@import "@fontsource-variable/outfit";
+@import "@fontsource-variable/playfair-display";
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-secondary: #fbbf24;
+}
+
+* {
+  font-family: "Outfit Variable";
+}
+
+.font-playfair {
+  font-family: "Playfair Display Variable" !important;
+}
