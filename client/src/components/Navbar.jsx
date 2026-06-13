@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation } from "react-router";
 import { assets } from "../assets/assets";
 import { Show, UserButton, SignInButton } from "@clerk/react"; // ✅ استخدم @clerk/react
+import { useAppContext } from "../context/AppContext";
 
 const BookIcon = () => (
   <svg
@@ -33,8 +34,10 @@ const Navbar = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
+
+  const { user, navigate, isOwner, setShowHotelReg } = useAppContext();
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -62,7 +65,7 @@ const Navbar = () => {
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-4 lg:gap-8">
-        {navLinks.map((link, i) => (
+        {navLinks?.map((link, i) => (
           <Link
             key={i}
             to={link.path}
@@ -74,12 +77,17 @@ const Navbar = () => {
             />
           </Link>
         ))}
-        <button
-          onClick={() => navigate("/owner")}
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? "text-black" : "text-white"} transition-all`}
-        >
-          Dashboard
-        </button>
+
+        {user && (
+          <button
+            onClick={() =>
+              isOwner ? navigate("/owner") : setShowHotelReg(true)
+            }
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? "text-black" : "text-white"} transition-all`}
+          >
+            {isOwner ? "Dashboard" : "List Tour Hotel"}
+          </button>
+        )}
       </div>
 
       {/* Desktop Right */}
@@ -93,8 +101,6 @@ const Navbar = () => {
         {/* ✅ استخدام Show بدل useUser */}
         <Show when="signed-in">
           <UserButton>
-            {" "}
-            {/* ✅ حذف afterSignOutUrl */}
             <UserButton.MenuItems>
               <UserButton.Action
                 label="My Bookings"
@@ -146,7 +152,7 @@ const Navbar = () => {
           <img src={assets.closeIcon} alt="close-menu" className="h-6.5" />
         </button>
 
-        {navLinks.map((link, i) => (
+        {navLinks?.map((link, i) => (
           <Link key={i} to={link.path} onClick={() => setIsMenuOpen(false)}>
             {link.name}
           </Link>
@@ -154,10 +160,12 @@ const Navbar = () => {
 
         <Show when="signed-in">
           <button
-            onClick={() => navigate("/owner")}
+            onClick={() =>
+              isOwner ? navigate("/owner") : setShowHotelReg(true)
+            }
             className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all"
           >
-            Dashboard
+            {isOwner ? "Dashboard" : "List Tour Hotel"}
           </button>
         </Show>
 

@@ -14,8 +14,10 @@
     "@fontsource-variable/outfit": "^5.2.8",
     "@fontsource-variable/playfair-display": "^5.2.8",
     "@tailwindcss/vite": "^4.3.0",
+    "axios": "^1.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-hot-toast": "^2.6.0",
     "react-router": "^7.15.1",
     "tailwindcss": "^4.3.0"
   },
