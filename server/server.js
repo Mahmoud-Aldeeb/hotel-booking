@@ -21,6 +21,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://hotel-booking-frontend-6rzmjr8st.vercel.app",
+      "https://hotel-booking-frontend-two-rho.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
