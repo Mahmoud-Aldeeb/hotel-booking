@@ -15,7 +15,7 @@ export const stripeWebhooks = async (request, response) => {
       process.env.STRIPE_WEBHOOK_SECRET,
     );
   } catch (error) {
-    response.status(400).send(`Webhook Error: ${error.message}`);
+    return response.status(400).send(`Webhook Error: ${error.message}`);
   }
 
   if (event.type === "payment_intent.succeeded") {
